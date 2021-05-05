@@ -1,0 +1,5 @@
+{
+  "engineConfig": {
+    "modules": ["demo-module-a", "demo-module-b"]
+  }
+}

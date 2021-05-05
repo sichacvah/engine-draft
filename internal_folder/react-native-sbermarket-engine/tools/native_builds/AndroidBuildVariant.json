@@ -1,0 +1,11 @@
+{
+  "dev": {
+    "config": "debug"
+  },
+  "release": {
+    "config": "release"
+  },
+  "staging": {
+    "config": "releaseStaging"
+  }
+}

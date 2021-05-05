@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+
+const {generateConfig, parseArguments} = require('../src/GenerateConfigure')
+generateConfig(parseArguments())

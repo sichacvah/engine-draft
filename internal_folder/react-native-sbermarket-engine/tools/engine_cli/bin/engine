@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+
+const {run, parseArgs} = require('../src/Engine')
+run(parseArgs())
