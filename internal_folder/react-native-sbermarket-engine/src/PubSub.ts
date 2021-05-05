@@ -1,35 +1,35 @@
 import {
-	PubSub,
-	SubscribtionFn,
-	PubSubFactory
+  PubSub,
+  SubscribtionFn,
+  PubSubFactory
 } from './ModuleManagement/types'
 
 
 export const makePubSubFactory = (): PubSubFactory => {
-	let subscribtions: Record<string, SubscribtionFn[]> = {}
+  let subscribtions: Record<string, SubscribtionFn[]> = {}
 
-	return (): PubSub => {
+  return (): PubSub => {
 
-		return {
-			publish: (event) => {
-				const listeners = subscribtions[event.type] ?? []
-				listeners.forEach(listener => {
-					invokeSafely(listener, event)
-				})
-			},
-			subscribe: (type, subscribtionFn) => {
-				const currentListeners = subscribtions[type] ?? []
-				subscribtions[type] = [...currentListeners, subscribtionFn]
-				return () => {
-					const nextListenrs = (subscribtions[type] ?? []).filter(l => l !== subscribtionFn)
-					subscribtions[type] = nextListenrs
-					if (nextListenrs.length === 0) {
-						delete subscribtions[type]
-					}
-				}
-			}
-		}
-	}
+    return {
+      publish: (event) => {
+        const listeners = subscribtions[event.type] ?? []
+        listeners.forEach(listener => {
+          invokeSafely(listener, event)
+        })
+      },
+      subscribe: (type, subscribtionFn) => {
+        const currentListeners = subscribtions[type] ?? []
+        subscribtions[type] = [...currentListeners, subscribtionFn]
+        return () => {
+          const nextListenrs = (subscribtions[type] ?? []).filter(l => l !== subscribtionFn)
+          subscribtions[type] = nextListenrs
+          if (nextListenrs.length === 0) {
+            delete subscribtions[type]
+          }
+        }
+      }
+    }
+  }
 }
 
 export const makePubSub = makePubSubFactory()

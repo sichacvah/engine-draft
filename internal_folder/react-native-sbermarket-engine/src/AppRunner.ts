@@ -6,34 +6,34 @@ import {LoadingComponent} from './components/LoadingComponent'
 import {makeEngineInitializer} from './EngineInitializer'
 
 export type AppRunner = {
-	getRootComponent: () => ComponentType
-	isAppLaunched: () => boolean
+  getRootComponent: () => ComponentType
+  isAppLaunched: () => boolean
 }
 
 
 export type Params = {
-	engineConfig: EngineConfig,
-	modulesGenerators: ModulesGenerators
+  engineConfig: EngineConfig,
+  modulesGenerators: ModulesGenerators
 }
 
 export const makeAppRunner = (params: Params): AppRunner => {
-	const {engineConfig, modulesGenerators} = params
+  const {engineConfig, modulesGenerators} = params
 
-	let RootComponent: ComponentType | undefined = undefined
+  let RootComponent: ComponentType | undefined = undefined
 
 
-	return {
-		isAppLaunched: () => Boolean(RootComponent),
-		getRootComponent: () => {
-			const getRootComponent = async () => {
-				if (!RootComponent) {
-					RootComponent = await makeEngineInitializer().initEngine(engineConfig, modulesGenerators)
-				}
-				return RootComponent
-			}
+  return {
+    isAppLaunched: () => Boolean(RootComponent),
+    getRootComponent: () => {
+      const getRootComponent = async () => {
+        if (!RootComponent) {
+          RootComponent = await makeEngineInitializer().initEngine(engineConfig, modulesGenerators)
+        }
+        return RootComponent
+      }
 
-			return rootComponentWrapper({getComponent: getRootComponent})
-		}
-	}
+      return rootComponentWrapper({getComponent: getRootComponent})
+    }
+  }
 
 }

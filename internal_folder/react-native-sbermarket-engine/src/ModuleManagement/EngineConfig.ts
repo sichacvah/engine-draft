@@ -1,6 +1,6 @@
 
 export type EngineConfig = {
-	modules: string[]
+  modules: string[]
 }
 
 
