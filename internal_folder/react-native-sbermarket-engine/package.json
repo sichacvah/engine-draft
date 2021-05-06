@@ -1,7 +1,6 @@
 {
   "name": "react-native-sbermarket-engine",
   "version": "0.0.1",
-  "private": true,
   "scripts": {
     "android": "internal_folder/react-native-sbermarket-engine/bin/engine -p demo-modules/moduleList.json -a",
     "start-empty-engine": "node internal_folder/react-native-sbermarket-engine/bin/engine -ia",
