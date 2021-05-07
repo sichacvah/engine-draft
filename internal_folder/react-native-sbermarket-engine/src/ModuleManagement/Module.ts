@@ -1,9 +1,10 @@
-import { Atom } from '../Atom/types'
+import { Atom, ReadonlyAtom } from '../Atom/types'
 import { ModalGenerator, TabGenerator, ScreenGenerator, ComponentGenerator, MethodGenerator, ModuleRegistry, PubSub } from './types'
 
 export type ModuleParams<GlobalState extends Record<string, any> = Record<string, any>> = {
   providePubSub: () => PubSub
-  provideAtom: () => Atom<GlobalState>
+  provideAtom: () => ReadonlyAtom<GlobalState>
+  provideLocalAtom: <LocalState>() => Atom<LocalState>
   provideModuleRegistry: () => ModuleRegistry<GlobalState>
 }
 
@@ -23,10 +24,11 @@ export type ModulesGenerators<GlobalState extends Record<string, any> = Record<s
   [key: string]: MakeModuleGenerator<GlobalState>
 }
 
+export type MethodsGenerators = Record<string, MethodGenerator> 
 
 export type Module = {
   prefix: () => string
-  methods?: () => Record<string, Function>
+  methods?: () => Record<string, MethodGenerator>
   components?: () => Record<string, ComponentGenerator>
   screens?: () => Record<string, ScreenGenerator>
   modals?:  () => Record<string, ModalGenerator>

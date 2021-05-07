@@ -39,7 +39,7 @@ const makeModule = (params: Params): Module => {
   return {
     prefix: () => PREFIX,
     methods: () => ({
-      alert: () => {
+      alert: () => () => {
         Alert.alert(`Alert from module ${PREFIX}`)
       }
     }),

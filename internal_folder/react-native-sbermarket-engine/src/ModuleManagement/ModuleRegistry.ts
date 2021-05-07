@@ -27,7 +27,9 @@ export const makeEngineModuleRegistry = <GlobalState extends object = object>(pu
       return undefined
     }
 
-    return generator(...args)
+    const method = generator()
+
+    return method(...args) as Return
   }
 
   const hasMethod = (globalID: GlobalID) => {
@@ -52,8 +54,17 @@ export const makeEngineModuleRegistry = <GlobalState extends object = object>(pu
     return generator()
   }
 
+  let _atom: Atom<GlobalState> | undefined = undefined
+
+  const provideAtom = () => {
+    if (!_atom) {
+      _atom = atomProvider()
+    }
+    return _atom
+  }
+
   const moduleRegistry = {
-    atom: atomProvider(),
+    provideAtom,
     getComponent,
     invoke,
     hasMethod,

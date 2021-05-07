@@ -41,7 +41,6 @@ export const makeNavigator = (modals: Modals, tabs: Tabs) => () => {
           return (
             <Stack.Screen
               key={`${index}`}
-              id={id}
               name={modal.name}
               options={modal.options}
               component={modal.component}

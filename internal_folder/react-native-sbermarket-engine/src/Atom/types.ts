@@ -1,4 +1,7 @@
 
+export interface IDisposable {
+  dispose: () => void
+}
 
 export interface Atom<S = any> extends IListenable<S>, IDerefable<S> {
   reset: (next: S) => Atom<S>
